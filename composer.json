@@ -1,5 +1,5 @@
 {    
-    "name": "helmutkaufmann/wn-blocksblog-plugin",
+    "name": "mercator/wn-blocksblog-plugin",
     "type": "winter-plugin",
     "description": "Plugin provising a blocks-based blog for Winter CMS",
     "homepage": "https://github.com/helmutkaufmann/wn-blocksblog-plugin",
