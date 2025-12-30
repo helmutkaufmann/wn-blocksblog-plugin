@@ -1,7 +1,7 @@
 {    
     "name": "mercator/wn-blocksblog-plugin",
     "type": "winter-plugin",
-    "description": "Plugin provising a blocks-based blog for Winter CMS",
+    "description": "Plugin providing a blocks-based blog for Winter CMS",
     "homepage": "https://github.com/helmutkaufmann/wn-blocksblog-plugin",
     "keywords": ["winter cms", "winter", "plugin", "blog", "blocks"],
     "license": "All rights reserved",
@@ -14,12 +14,12 @@
     ],
     "support": {
         "issues": "https://github.com/helmutkaufmann/wn-blocksblog-plugin/issues",
-        "source": "https://github.com/helmutkaufmann/wn-blocksblog--plugin"
+        "source": "https://github.com/helmutkaufmann/wn-blocksblog-plugin"
     },
     "require": {
         "winter/wn-blocks-plugin": "dev-main as 1.0.0"
     },
     "extra": {
-        "installer-name": "blocks"
+        "installer-name": "blocksblog"
     }
 }
