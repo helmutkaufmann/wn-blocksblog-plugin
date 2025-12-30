@@ -1,0 +1,10 @@
+name: Category
+modelClass: Mercator\BlocksBlog\Models\Category
+form: $/mercator/blocksblog/models/category/fields.yaml
+defaultRedirect: mercator/blocksblog/categories
+create:
+    redirect: 'mercator/blocksblog/categories/update/:id'
+    redirectClose: mercator/blocksblog/categories
+update:
+    redirect: mercator/blocksblog/categories
+    redirectClose: mercator/blocksblog/categories

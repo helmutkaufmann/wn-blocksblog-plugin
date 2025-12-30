@@ -1,0 +1,19 @@
+<h3>{{ post.title }}</h3>
+<div class="bb-meta">
+  {% if post.published_at %}{{ post.published_at|date('d.m.Y H:i') }}{% endif %}
+  {% if post.author %} — {{ post.author_full_name }}{% endif %}
+</div>
+
+<div class="bb-content">
+  {% if post.content %}{{ renderBlocks(post.content)}}{% endif %}
+</div>
+<br>
+<div class="bb-cats">
+  Categories:
+  {% for c in post.categories %}
+    <a href="javascript:;"
+       data-request="{{ __SELF__ }}::onFilterCategory"
+       data-request-data="slug: '{{ c.slug }}'"
+       onclick="location.hash='{{ anchorId }}'">{{ c.name }}</a>{% if not loop.last %}, {% endif %}
+  {% endfor %}
+</div>

@@ -1,0 +1,22 @@
+<h3>{{ post.title }}</h3>
+<div class="bb-meta">
+  {% if post.published_at %}{{ post.published_at|date('d.m.Y H:i') }}{% endif %}
+  {% if post.author_full_name %} - {{ post.author_full_name }}{% endif %}
+</div>
+
+<div class="bb-excerpt">
+  {% partial __SELF__ ~ '::_blocks' value=post.excerpt %}
+  {{ renderBlocks(post.excerpt)}}
+</div>
+
+<div class="bb-cats">
+  {% for c in post.categories %}
+    <a href="javascript:;"
+       data-request="{{ __SELF__ }}::onFilterCategory"
+       data-request-data="slug: '{{ c.slug }}'"
+       onclick="location.hash='{{ anchorId }}'">{{ c.name }}</a>{% if not loop.last %}, {% endif %}
+  {% endfor %}
+</div>
+
+<p><a href="javascript:;" data-request="{{ __SELF__ }}::onReadMore" data-request-data="id: {{ post.id }}">Read more</a></p>
+<hr>

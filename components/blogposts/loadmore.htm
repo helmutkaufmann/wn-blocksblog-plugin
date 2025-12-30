@@ -1,0 +1,10 @@
+{% if hasMore %}
+<button
+  type="button"
+  data-request="{{ __SELF__ }}::onLoadMore"
+  data-request-form="#bb-form-{{ anchorId }}"
+  data-request-update="'{{ __SELF__ }}::posts_items': '#bb-form-{{ anchorId }} .bb-posts-append'"
+  data-request-update-mode="append">
+  Show more posts
+</button>
+{% endif %}

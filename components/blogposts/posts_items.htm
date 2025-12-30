@@ -1,0 +1,22 @@
+{% for post in posts %}
+  <article id="bb-post-{{ post.id }}" class="bb-post">
+    <h3>{{ post.title }}</h3>
+
+    <div class="bb-meta">
+      {{ post.published_at|date('d.m.Y H:i') }} {% if post.author %} — {{ post.author_full_name }}{% endif %}
+    </div>
+
+    <div class="bb-excerpt">
+      {% if post.excerpt %}{{ renderBlocks(post.excerpt) }}{% endif %}
+    </div>
+
+    <a href="javascript:;"
+       data-request="{{ __SELF__ }}::onReadMore"
+       data-request-data="id: {{ post.id }}"
+       data-request-flash>
+      Read more
+    </a>
+  </article>
+
+  {% if not loop.last %}<hr>{% endif %}
+{% endfor %}

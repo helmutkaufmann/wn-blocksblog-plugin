@@ -1,0 +1,77 @@
+name: Blog Posts List
+description: Lists newest posts for selected categories with AJAX load-more and read-more.
+icon: icon-newspaper-o
+tags: ["pages"]
+
+fields:
+  categorySlugs:
+    label: Category slugs
+    type: text
+    comment: Comma-separated, e.g. "cat,none". Leave empty for all.
+
+  perPage:
+    label: Initial posts (X)
+    type: number
+    default: 3
+    span: left
+
+  loadMore:
+    label: Subsequent posts (Y)
+    type: number
+    default: 5
+    span: right
+
+  anchorId:
+    label: Anchor ID
+    type: text
+    default: blog
+    comment: Must be unique on the page.
+
+==
+{# Winter.Blocks block markup #}
+{% set anchor = anchorId|default('blog') %}
+{% set per = perPage|default(3) %}
+{% set more = loadMore|default(5) %}
+{% set slugs = categorySlugs ? categorySlugs|split(',')|map(v => v|trim)|filter(v => v) : [] %}
+
+<div id="{{ anchor }}">
+  <div class="bb-posts" data-anchor="{{ anchor }}">
+    <form id="bb-form-{{ anchor }}">
+      <input type="hidden" name="page" value="1">
+      <input type="hidden" name="category" value="">
+      <input type="hidden" name="perPage" value="{{ per }}">
+      <input type="hidden" name="loadMore" value="{{ more }}">
+      <input type="hidden" name="categorySlugs" value="{{ categorySlugs|default('') }}">
+
+      <div class="bb-posts-append">
+        {% partial 'acme/blocksblog::blocks/_posts_items'
+          posts = Mercator\\BlocksBlog\\Models\\Post.published()
+            .with(['categories','author'])
+            .when(slugs|length, q => q.whereHas('categories', qq => qq.whereIn('slug', slugs)))
+            .orderBy('published_at', 'desc')
+            .take(per)
+            .get()
+        %}
+      </div>
+
+      {% set totalCount =
+        Mercator\\BlocksBlog\\Models\\Post.published()
+          .when(slugs|length, q => q.whereHas('categories', qq => qq.whereIn('slug', slugs)))
+          .count()
+      %}
+      {% set hasMore = totalCount > per %}
+
+      <div class="bb-loadmore-wrap">
+        {% if hasMore %}
+          <button type="button" class="bb-loadmore"
+            data-request="onBlocksBlogLoadMore"
+            data-request-form="#bb-form-{{ anchor }}"
+            data-request-update="'acme/blocksblog::blocks/_posts_items': '#bb-form-{{ anchor }} .bb-posts-append'"
+            data-request-update-mode="append">
+            Show more posts
+          </button>
+        {% endif %}
+      </div>
+    </form>
+  </div>
+</div>

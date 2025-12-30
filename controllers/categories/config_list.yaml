@@ -1,0 +1,11 @@
+list: $/mercator/blocksblog/models/category/columns.yaml
+modelClass: Mercator\BlocksBlog\Models\Category
+title: Categories
+recordUrl: 'mercator/blocksblog/categories/update/:id'
+noRecordsMessage: No categories found
+showSetup: true
+showCheckboxes: true
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: Search categories

@@ -1,0 +1,10 @@
+name: Post
+modelClass: Mercator\BlocksBlog\Models\Post
+form: $/mercator/blocksblog/models/post/fields.yaml
+defaultRedirect: mercator/blocksblog/posts
+create:
+    redirect: 'mercator/blocksblog/posts/update/:id'
+    redirectClose: mercator/blocksblog/posts
+update:
+    redirect: mercator/blocksblog/posts
+    redirectClose: mercator/blocksblog/posts

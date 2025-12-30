@@ -1,0 +1,13 @@
+{% set blocks = value %}
+{% if blocks is iterable %}
+  {% for b in blocks %}
+    {% set data = b.data ?? b %}
+    {% if data.text is defined %}
+      <p>{{ data.text|raw }}</p>
+    {% elseif data.content is defined %}
+      <div>{{ data.content|raw }}</div>
+    {% elseif data.html is defined %}
+      <div>{{ data.html|raw }}</div>
+    {% endif %}
+  {% endfor %}
+{% endif %}
