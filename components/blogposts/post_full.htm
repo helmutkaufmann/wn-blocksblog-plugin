@@ -17,7 +17,7 @@
     <div class="bb-post-titlewrap">
       <h2 class="uk-margin-remove">{{ post.title }}</h2>
       <div class="uk-text-meta">
-        {{ post.published_at|date('d.m.Y') }}{% if post.author %} — {{ post.author_full_name }}{% endif %}
+        {{ "Published on" | _ }} {{ post.published_at|date('d.m.Y') }}{% if post.author %} — {{ post.author_full_name }}{% endif %}
       </div>
     </div>
   </div>
