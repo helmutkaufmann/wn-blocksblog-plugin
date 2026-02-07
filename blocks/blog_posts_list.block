@@ -1,0 +1,112 @@
+name: Blog Posts List
+description: Lists newest posts for selected categories with AJAX load-more and read-more.
+icon: icon-newspaper-o
+tags: ["pages"]
+
+fields:
+  categorySlugs:
+    label: Categories
+    type: checkboxlist
+    options: getCategorySlugsOptions
+    comment: Select one or more categories. Leave empty to show all.
+
+  perPage:
+    label: Initial posts (X)
+    type: number
+    default: 3
+    span: left
+
+  loadMore:
+    label: Subsequent posts (Y)
+    type: number
+    default: 5
+    span: right
+
+  anchorId:
+    label: Anchor ID
+    type: text
+    default: blog
+    comment: Must be unique on the page.
+
+  showFeaturedImage:
+    label: Show featured image
+    type: switch
+    default: 1
+    comment: If enabled, the post's featured image will be rendered (or the fallback image if none is set).
+
+  fallbackFeaturedImage:
+    label: Fallback featured image
+    type: mediafinder
+    mode: image
+    span: left
+    comment: Used when a post has no featured image set.
+    imageHeight: 120
+    imageWidth: 120
+    trigger:
+      action: show
+      field: showFeaturedImage
+      condition: checked
+
+  featuredImageShape:
+    label: Featured image shape
+    type: balloon-selector
+    default: round
+    options:
+      round: Round
+      square: Square
+    span: right
+    trigger:
+      action: show
+      field: showFeaturedImage
+      condition: checked
+
+==
+{# Winter.Blocks block markup #}
+
+{# Normalize categorySlugs from checkboxlist (assoc or list) or legacy CSV #}
+{% set slugs = [] %}
+
+{% if categorySlugs is iterable %}
+  {# checkboxlist can be:
+     1) assoc: { "slug-a": "1", "slug-b": "0" } or { "slug-a": true }
+     2) list:  [ "slug-a", "slug-b" ]
+  #}
+  {% for k, v in categorySlugs %}
+    {% set val = (v is same as(true)) or (v == 1) or (v == '1') or (v == 'true') or (v == 'on') %}
+    {% if val %}
+      {# assoc case: key is the slug #}
+      {% set slugs = slugs|merge([k]) %}
+    {% elseif v %}
+      {# list case: value is the slug #}
+      {% set slugs = slugs|merge([v]) %}
+    {% endif %}
+  {% endfor %}
+
+{% elseif categorySlugs %}
+  {# legacy comma-separated string #}
+  {% set slugs = categorySlugs|split(',') %}
+{% endif %}
+
+{# Trim + drop empties + de-dup (de-dup via dict keys; no "unique" filter needed) #}
+{% set tmp = {} %}
+{% for s in slugs %}
+  {% set s = (s ~ '')|trim %}
+  {% if s != '' %}
+    {% set tmp = tmp|merge({ (s): 1 }) %}
+  {% endif %}
+{% endfor %}
+{% set slugs = tmp|keys %}
+
+{% set slugCsv = slugs|join(',') %}
+
+
+
+{{ dynComponentRender('blogPosts', {
+  perPage: perPage,
+  loadMore: loadMore,
+  categorySlugs: slugCsv,
+  anchorId: anchorId,
+  showFeaturedImage: showFeaturedImage,
+  featuredImageShape: featuredImageShape,
+  fallbackFeaturedImage: fallbackFeaturedImage
+}, 'BlogPosts') }}

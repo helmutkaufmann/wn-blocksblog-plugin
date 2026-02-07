@@ -1,0 +1,14 @@
+<ul class="bb-category-list">
+{% for c in categories %}
+  <li>
+    {% if linkMode == 'ajax' %}
+      <a href="javascript:;"
+         data-request="blogPosts::onFilterCategory"
+         data-request-data="slug: '{{ c.slug }}'"
+         onclick="location.hash='{{ anchorId }}'">{{ c.name }}</a>
+    {% else %}
+      <a href="{{ ''|page }}?category={{ c.slug }}#{{ anchorId }}">{{ c.name }}</a>
+    {% endif %}
+  </li>
+{% endfor %}
+</ul>

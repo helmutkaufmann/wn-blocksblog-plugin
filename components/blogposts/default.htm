@@ -1,0 +1,12 @@
+<div id="{{ anchorId }}">
+  {% partial __SELF__ ~ '::posts_list'
+    posts=posts
+    pageNum=pageNum
+    hasMore=hasMore
+    anchorId=anchorId
+    currentCategory=currentCategory
+    showFeaturedImage=showFeaturedImage
+    fallbackFeaturedImage=fallbackFeaturedImage
+    featuredImageShape=featuredImageShape
+  %}
+</div>

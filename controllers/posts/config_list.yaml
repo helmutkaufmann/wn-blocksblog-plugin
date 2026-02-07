@@ -1,0 +1,11 @@
+list: $/mercator/blocksblog/models/post/columns.yaml
+modelClass: Mercator\BlocksBlog\Models\Post
+title: Posts
+recordUrl: 'mercator/blocksblog/posts/update/:id'
+noRecordsMessage: No posts found
+showSetup: true
+showCheckboxes: true
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: Search posts

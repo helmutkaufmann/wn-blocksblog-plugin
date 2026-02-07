@@ -1,0 +1,26 @@
+<article class="bb-post-full uk-article">
+  {% set _imgUrl = null %}
+  {% if showFeaturedImage %}
+    {% set _imgUrl = post.featured_image ? post.featured_image.path : (fallbackFeaturedImage ? (fallbackFeaturedImage|media) : null) %}
+  {% endif %}
+
+  <div class="bb-post-header uk-flex uk-flex-middle uk-margin-small-bottom">
+    {% if _imgUrl %}
+      {% set _size = 100 %}
+      {% set _shape = featuredImageShape|default('round') %}
+      {% set _radius = (_shape == 'square') ? '0' : '50%' %}
+<div class="bb-post-thumb" style="width: {{ _size }}px; height: {{ _size }}px; border-radius: {{ _radius }}; overflow: hidden; flex: 0 0 auto; margin-right: 20px;">
+        <img src="{{ _imgUrl }}" alt="{{ post.title|e }}" loading="lazy" style="width: 100%; height: 100%; {{ (_shape == 'square') ? 'object-fit: contain;' : 'object-fit: cover;' }}">
+      </div>
+    {% endif %}
+
+    <div class="bb-post-titlewrap">
+      <h2 class="uk-margin-remove">{{ post.title }}</h2>
+      <div class="uk-text-meta">
+        {{ post.published_at|date('d.m.Y') }}{% if post.author %} — {{ post.author_full_name }}{% endif %}
+      </div>
+    </div>
+  </div>
+
+  {% if post.content %}{{ renderBlocks(post.content) }}{% endif %}
+</article>

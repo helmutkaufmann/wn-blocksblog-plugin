@@ -1,0 +1,18 @@
+<form id="bb-form-{{ anchorId }}">
+
+  <input type="hidden" name="page" value="{{ pageNum|default(1) }}">
+  <input type="hidden" name="category" value="{{ currentCategory|default('') }}">
+  <div class="bb-posts-append">
+    {% partial '@posts_items'
+      posts=posts
+      anchorId=anchorId
+      showFeaturedImage=showFeaturedImage
+      fallbackFeaturedImage=fallbackFeaturedImage
+      featuredImageShape=featuredImageShape
+    %}
+  </div>
+  
+  <div class="bb-loadmore-wrap">
+    {% partial '@loadmore' hasMore=hasMore anchorId=anchorId %}
+  </div>
+</form>

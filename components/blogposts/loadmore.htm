@@ -1,0 +1,24 @@
+{% if hasMore %}
+<button class="uk-button uk-button-default uk-margin-medium-top" 
+  type="button"
+  data-request="{{ __SELF__ }}::onLoadMore"
+  data-request-form="#bb-form-{{ anchorId }}"
+  data-request-success="
+    var form = document.querySelector('#bb-form-{{ anchorId }}');
+    if (!form) return;
+    if (data && data.postsHtml) {
+      var target = form.querySelector('.bb-posts-append');
+      if (target) target.insertAdjacentHTML('beforeend', data.postsHtml);
+    }
+    if (data && data.page) {
+      var pageInput = form.querySelector('input[name=page]');
+      if (pageInput) pageInput.value = data.page;
+    }
+    if (data && typeof data.loadmoreHtml !== 'undefined') {
+      var wrap = form.querySelector('.bb-loadmore-wrap');
+      if (wrap) wrap.innerHTML = data.loadmoreHtml;
+    }
+  ">
+  {{ 'Show more posts' | _ }}
+</button>
+{% endif %}

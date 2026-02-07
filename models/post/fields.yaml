@@ -1,0 +1,53 @@
+fields:
+  title:
+    label: Title
+    span: left
+    required: 1
+  slug:
+    label: Slug
+    span: right
+    preset:
+      field: title
+      type: slug
+    required: 1
+  author:
+    label: Author
+    type: relation
+    nameFrom: name_lf
+    scope: orderByName
+    span: left
+  categories:
+    label: Categories
+    type: relation
+    nameFrom: name
+    span: auto
+  is_published:
+    label: Published
+    type: switch
+    span: left
+  published_at:
+    label: Publication date/time
+    type: datepicker
+    mode: datetime
+    span: left
+    trigger:
+      action: show
+      field: is_published
+      condition: checked
+  featured_image:
+      label: Featured image
+      type: fileupload
+      mode: image
+      span: right
+      imageWidth: 150
+      imageHeight: 100
+tabs:
+  fields:
+    excerpt:
+      label: Excerpt
+      type: blocks
+      tab: Excerpt
+    content:
+      label: Content
+      type: blocks
+      tab: Content

@@ -1,0 +1,18 @@
+fields:
+  name:
+    label: Name
+    span: left
+    required: 1
+
+  slug:
+    label: Slug
+    span: right
+    preset:
+      field: name
+      type: slug
+    required: 1
+
+  description:
+    label: Description
+    type: textarea
+    size: large

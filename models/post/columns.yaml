@@ -1,0 +1,25 @@
+columns:
+  title:
+    label: Title
+    searchable: true
+    width: 25%
+  author:
+    label: Author
+    relation: author
+    select: (coalesce(backend_users.last_name, '') || ' ' || coalesce(backend_users.first_name, ''))
+    sortable: true
+    width: 25%
+  categories:
+    label: Categories
+    relation: categories
+    select: name
+  published_at:
+    label: Published at
+    type: datetime
+  status_badge:
+    label: Status
+    type: partial
+    path: $/mercator/blocksblog/models/post/_status_badge.htm
+    sortable: true
+    valueFrom: is_published
+  

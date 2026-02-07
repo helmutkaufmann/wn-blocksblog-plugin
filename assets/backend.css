@@ -1,0 +1,24 @@
+.is-unpublished {
+    color: #b91c1c !important;
+    font-weight: 600;
+}
+.badge-unpublished {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    line-height: 16px;
+    background: #fee2e2;
+    color: #b91c1c;
+    font-weight: 600;
+}
+.badge-published {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    line-height: 16px;
+    background: #dcfce7;
+    color: #166534;
+    font-weight: 600;
+}

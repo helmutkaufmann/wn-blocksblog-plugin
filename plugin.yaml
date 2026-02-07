@@ -1,0 +1,23 @@
+plugin:
+    name: 'Blocks Blog'
+    description: 'Blog with categories and posts using Blocks fields'
+    author: 'Mercator'
+    icon: oc-icon-newspaper-o
+
+require:
+    - Winter.Content
+
+navigation:
+    blocksblog:
+        label: 'Blocks Blog'
+        url: mercator/blocksblog/posts
+        icon: icon-newspaper-o
+        sideMenu:
+            posts:
+                label: Posts
+                url: mercator/blocksblog/posts
+                icon: icon-file-text-o
+            categories:
+                label: Categories
+                url: mercator/blocksblog/categories
+                icon: icon-tags
