@@ -29,12 +29,23 @@
       </div>
     {% endif %}
 
-    <a class="uk-button uk-button-text uk-margin-small-top"
-       href="javascript:;"
-       data-request="{{ __SELF__ }}::onReadMore"
-       data-request-data="id: {{ post.id }}"
-       data-request-flash>
-      {{ 'Read more' | _ }}
-    </a>
+    {% set _hasContent = false %}
+    {% if post.content %}
+      {% if post.content is iterable %}
+        {% set _hasContent = post.content|length > 0 %}
+      {% else %}
+        {% set _hasContent = post.content|striptags|trim != '' %}
+      {% endif %}
+    {% endif %}
+
+    {% if _hasContent %}
+      <a class="uk-button uk-button-text uk-margin-small-top"
+         href="javascript:;"
+         data-request="{{ __SELF__ }}::onReadMore"
+         data-request-data="id: {{ post.id }}"
+         data-request-flash>
+        {{ 'Read more' | _ }}
+      </a>
+    {% endif %}
   </article>
 {% endfor %}
